@@ -1,0 +1,9 @@
+{
+    "dburl":"mongodb://localhost:27017/ididb",
+    "secretKey":"@!phedZIDI@2021",
+    "env":"sandbox",
+    "paypalClientID":"AejE1MqVC4RHkHWHTWSfJu3EGDaFLX1xzEa45_Yw-v19JoDmua7K1iMw6QvgYY-pefjmhHCUXKFHtozv",
+    "paypalClientSecret":"ECY3wAlfN6QWsTXrbXG-ZR5smBrBX6A5A9MpTLFd4I2XGoEeMO682wuNnr2Rm75Z3Tu0VRA6-bbrMie8",
+    "returnUrl": "http://localhost:3000/return",
+    "cancelUrl": "http://localhost:3000/cancel"
+}
