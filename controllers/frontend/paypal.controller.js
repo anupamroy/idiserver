@@ -1,6 +1,6 @@
 const paypal = require('paypal-rest-sdk');
 const config = require('config')
-var request = require('request');
+
 
 paypal.configure({
     mode:config.get("env"),
