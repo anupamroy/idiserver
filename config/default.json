@@ -1,5 +1,5 @@
 {
-    "dburl":"mongodb://localhost:27017/ididb",
+    "dburl":"mongodb+srv://idiuser:YpxjR5ekehKhH6YK@cluster0.e5vyx.mongodb.net/ididb?retryWrites=true&w=majority",
     "secretKey":"@!phedZIDI@2021",
     "env":"sandbox",
     "paypalClientID":"AejE1MqVC4RHkHWHTWSfJu3EGDaFLX1xzEa45_Yw-v19JoDmua7K1iMw6QvgYY-pefjmhHCUXKFHtozv",
@@ -7,3 +7,4 @@
     "returnUrl": "http://localhost:3000/return",
     "cancelUrl": "http://localhost:3000/cancel"
 }
+
