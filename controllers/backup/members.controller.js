@@ -2,7 +2,6 @@ const Membership = require('../models/Membership');
 const Transaction = require('../models/Transactions');
 const joi = require('joi');
 const bcrypt = require('bcryptjs')
-const sendgrid = require('@sendgrid/mail')
 
 exports.create = async (req,res)=>{
     const memberSchema = joi.object({
@@ -35,31 +34,9 @@ exports.create = async (req,res)=>{
             const hash = await bcrypt.hash('azdeXty213',salt);
             membershipFields.password = hash
             member = new Membership(membershipFields)
-                        
+            
+            
             await member.save()
-
-            sendgrid.setApiKey("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")
-        const msg = {
-            to: member.email, // Change to your recipient
-            from: 'codewithanupam@gmail.com', // Change to your verified sender
-            subject: 'Thank you for Registering with IDI',
-            dynamic_template_data:{
-                "name":member.firstName,
-                "email":member.email,
-                "password":"azdeXty213"
-            },
-            template_id:"d-ba1b78f721ba44d780b38bdc9bfbec1c",
-            // text: 'and easy to do anywhere, even with Node.js',
-            // html: '<strong>and easy to do anywhere, even with Node.js</strong>',
-          }
-          sendgrid
-            .send(msg)
-            .then(() => {
-                console.log('Email sent')
-            })
-            .catch((error) => {
-                console.error(error.response.body)
-            })
             res.status(200).json({
                 result:1,
                 message:"Data Saved",
@@ -168,25 +145,4 @@ exports.listoftransactions = async(req,res) =>{
             err:err.message
         })
     }
-}
-
-exports.changePassword = async(req,res)=>{
-    const salt = bcrypt.genSaltSync(10);
-    const hash = await bcrypt.hash(req.body.password,salt);
-    const password=hash
-    await Membership.findByIdAndUpdate(req.body.id,{password:password},function (err, docs) {
-        if (err){
-            res.status(500).json({
-                message:"Something went wrong",
-                result:0
-            })
-        }
-        else{
-            res.status(200).json({
-                message:"Password changed successfully",
-                result:1
-            })
-        }
-    }
-    )
 }

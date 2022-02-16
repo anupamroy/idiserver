@@ -72,6 +72,16 @@ const Members = mongoose.Schema({
         type:String,
         enum:['Y','N'],
         default:'N'
+    },
+    isPaid:{
+        type:String,
+        enum:['Y','N'],
+        default:'N'
+    },
+    isPaidatRegistration:{
+        type:String,
+        enum:['Y','N'],
+        default:'N'
     }
 },{
     timestamps:true

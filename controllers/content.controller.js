@@ -158,3 +158,10 @@ exports.getContentByPageId=async (req,res)=>{
     
     
 }
+
+exports.deleteimage=async (req,res)=>{
+    console.log(req.body.contentId)
+    console.log(req.body.pics)
+    const contents =await Content.findByIdAndUpdate(req.body.contentId,{contentImage:req.body.pics})
+    console.log(contents)
+}

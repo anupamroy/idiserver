@@ -20,6 +20,7 @@ const pageContentRoute = require('./routes/pagecontent');
 const membershipRouter = require('./routes/membership')
 const paypalRoute = require('./routes/paypal');
 const transactionRouter = require('./routes/transaction');
+const paymentRouter = require('./routes/payments');
 const { expression } = require('joi');
 app.use(express.json());
 app.use(express.static('uploads'))
@@ -38,6 +39,7 @@ app.use('/api/admin/pagecontent',pageContentRoute);
 app.use('/api/membership',membershipRouter);
 app.use('/api/paypal',paypalRoute)
 app.use('/api/transaction',transactionRouter);
+app.use('/api/payment',paymentRouter);
 app.listen(port,()=>{
     console.log(`Server started at port ${port}`)
 })
