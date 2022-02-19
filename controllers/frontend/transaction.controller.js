@@ -6,10 +6,11 @@ exports.create = async (req,res) =>{
         const member = await Member.findById(req.body.memberID);
         const transaction = new Transaction(req.body);
         await transaction.save();
-        
+        console.log("Transaction "+transaction._id)
         res.status(200).json({
             message:"Transaction saved successfully",
-            result:1
+            result:1,
+            transaction:transaction
         })
     }catch(err){
         res.status(500).json({

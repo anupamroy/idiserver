@@ -3,7 +3,7 @@ const Transaction = require('../models/Transactions');
 const joi = require('joi');
 const bcrypt = require('bcryptjs')
 const sendgrid = require('@sendgrid/mail')
-
+const nodemailer = require('nodemailer');
 exports.create = async (req,res)=>{
     const memberSchema = joi.object({
         firstName:joi.string().required(),
@@ -37,21 +37,55 @@ exports.create = async (req,res)=>{
             member = new Membership(membershipFields)
                         
             await member.save()
+            // let emailSubject = "Registration Success-IDI";
+            // let emailBody = "Test Email";
+            // // emailBody = emailBody.replace('[Username]', LoginName);
+            // // emailBody = emailBody.replace('[Name]', FirstName + '' + LastName);
+            // // emailBody = emailBody.replace('[Url]', url);
+            // // emailBody = emailBody.replace('[password]', autoPassword);
+
+            // let transport = nodemailer.createTransport({
+            //     host: 'smtp.sendgrid.net',
+            //     port: 587,
+            //     secure: false,
+            //     auth: {
+            //         user: 'apikey',
+            //         pass: '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'
+            //     }
+            // });
+
+            // let mailOptions = {
+            //     from: "codewithanupam@gmail.com",
+            //     to: "mr.anupamroy@gmail.com",
+            //     subject: emailSubject,
+            //     text: emailBody
+            // };
+
+            // transport.sendMail(mailOptions, (error, info) => {
+            //     if (error) {
+            //         console.log(error);
+                    
+            //     }
+            //     else {
+            //         console.log('Email sent')
+            //     }
+            // });
 
             sendgrid.setApiKey("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")
         const msg = {
             to: member.email, // Change to your recipient
             from: 'codewithanupam@gmail.com', // Change to your verified sender
-            subject: 'Thank you for Registering with IDI',
             dynamic_template_data:{
-                "name":member.firstName,
-                "email":member.email,
-                "password":"azdeXty213"
+                subject: 'Thank you for Registering with IDI',
+                name:member.firstName,
+                email:member.email,
+                password:"azdeXty213"
             },
             template_id:"d-ba1b78f721ba44d780b38bdc9bfbec1c",
             // text: 'and easy to do anywhere, even with Node.js',
             // html: '<strong>and easy to do anywhere, even with Node.js</strong>',
           }
+          console.log(msg);
           sendgrid
             .send(msg)
             .then(() => {
@@ -60,16 +94,16 @@ exports.create = async (req,res)=>{
             .catch((error) => {
                 console.error(error.response.body)
             })
-            res.status(200).json({
-                result:1,
-                message:"Data Saved",
-                member
-            })
+                res.status(200).json({
+                    result:1,
+                    message:"Data Saved",
+                    member
+                })
         }else{
-            res.status(400).json({
-                result:2,
-                message:"You are already an existing member. Please login"
-            })
+                res.status(400).json({
+                    result:2,
+                    message:"You are already an existing member. Please login"
+                })
         }
 
     }catch(err){
